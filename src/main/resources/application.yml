@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: gamer-sync
+  datasource:
+    username: gs
+    password: root
+    url: jdbc:mysql://localhost:3306/gs
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.yml
+  jpa:
+    open-in-view: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: validate
