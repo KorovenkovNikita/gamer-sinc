@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -11,17 +12,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
     private String username;
+    @Column(name = "network_status")
     private Boolean networkStatus;
     private Double rating;
     private String name;
     private String surname;
-    private String gender;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private Integer age;
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Game> games;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "userId")
-    private List<User> friends;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "userId")
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    private Set<User> friends;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Group> groups;
 }
