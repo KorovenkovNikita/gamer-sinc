@@ -16,9 +16,9 @@ create table if not exists user
 
 create table if not exists game
 (
-    id     bigint auto_increment,
-    title  varchar(255) not null,
-    rating double       not null default 0.0,
+    id        bigint auto_increment,
+    title     varchar(255) not null,
+    rating    double       not null default 0.0,
     constraint pk_game primary key (id),
     constraint uq_game_title unique (title)
 );
@@ -29,49 +29,52 @@ create table if not exists `group`
     title   varchar(255) not null,
     game_id bigint       not null,
     constraint pk_group primary key (id),
-    constraint uq_group_title unique (title)
+    constraint uq_group_title unique (title),
+    constraint fk_group_game
+        foreign key (game_id) references game (id)
 );
+
 create table if not exists `genre`
 (
-    id      bigint auto_increment,
-    title   varchar(255) not null,
+    id    bigint auto_increment,
+    title varchar(255) not null,
     constraint pk_genre primary key (id),
     constraint uq_genre_title unique (title)
 );
 
 create table if not exists `game_users`
 (
-    users_id       bigint not null,
-    games_id       bigint not null,
-    constraint fk_game_users_user
+    users_id bigint not null,
+    games_id bigint not null,
+    constraint fk_game_users_users
         foreign key (users_id) references user (id),
-    constraint fk_game_users_game
+    constraint fk_game_users_games
         foreign key (games_id) references game (id)
 );
 create table if not exists `group_users`
 (
-    groups_id       bigint not null,
-    users_id        bigint not null,
-    constraint fk_group_users_user
+    groups_id bigint not null,
+    users_id  bigint not null,
+    constraint fk_group_users_users
         foreign key (users_id) references user (id),
-    constraint fk_group_users_group
+    constraint fk_group_users_groups
         foreign key (groups_id) references `group` (id)
 );
 create table if not exists `game_genres`
 (
-    games_id       bigint not null,
-    genres_id        bigint not null,
-    constraint fk_game_genres_game
+    games_id  bigint not null,
+    genres_id bigint not null,
+    constraint fk_game_genres_games
         foreign key (games_id) references game (id),
-    constraint fk_game_genres_genre
+    constraint fk_game_genres_genres
         foreign key (genres_id) references `genre` (id)
 );
 create table if not exists `user_friends`
 (
-    user_id       bigint not null,
-    friends_id        bigint not null,
-    constraint fk_user_friends_user
+    user_id    bigint not null,
+    friends_id bigint not null,
+    constraint fk_user_friends_users
         foreign key (user_id) references user (id),
-    constraint fk_user_friends_friend
+    constraint fk_user_friends_friends
         foreign key (friends_id) references user (id)
 );

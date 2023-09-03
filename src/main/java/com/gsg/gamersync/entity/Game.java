@@ -16,6 +16,8 @@ public class Game {
     private String title;
     @Column(nullable = false)
     private Double rating = 0.0;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "game")
+    private List<Group> groups;
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Genre> genres;
     @ManyToMany(fetch = FetchType.LAZY)
