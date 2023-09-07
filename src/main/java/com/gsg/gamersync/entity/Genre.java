@@ -22,5 +22,4 @@ public class Genre {
     public Genre(GenreTitle title) {
         this.title = title;
     }
-
 }
