@@ -9,11 +9,14 @@ import java.util.Set;
 @Entity
 @Data
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String username;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Column(name = "network_status")
     private Boolean networkStatus;
     private Double rating;
@@ -25,7 +28,7 @@ public class User {
     private Integer age;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Game> games;
-    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> friends;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Group> groups;

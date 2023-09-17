@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Data
 public class Game {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

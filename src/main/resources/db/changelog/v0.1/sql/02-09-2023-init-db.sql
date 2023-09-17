@@ -4,6 +4,7 @@ create table if not exists user
 (
     id             bigint auto_increment,
     username       varchar(255) not null,
+    role           varchar(255) not null,
     network_status boolean      not null,
     rating         double       not null,
     name           varchar(255),
@@ -16,9 +17,9 @@ create table if not exists user
 
 create table if not exists game
 (
-    id        bigint auto_increment,
-    title     varchar(255) not null,
-    rating    double       not null default 0.0,
+    id     bigint auto_increment,
+    title  varchar(255) not null,
+    rating double       not null default 0.0,
     constraint pk_game primary key (id),
     constraint uq_game_title unique (title)
 );
