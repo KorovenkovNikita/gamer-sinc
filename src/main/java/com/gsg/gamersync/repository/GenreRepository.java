@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GenreRepository extends JpaRepository<Genre, Long> {
+
     @NonNull List<Genre> findAll();
 
     @Query(value = "select id, title from genre", nativeQuery = true)

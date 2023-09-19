@@ -1,13 +1,22 @@
 package com.gsg.gamersync.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
-
+import com.gsg.gamersync.dto.GameDtoIn;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import java.util.List;
 import java.util.Set;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Game {
 
     @Id
@@ -23,4 +32,12 @@ public class Game {
     private Set<Genre> genres;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<User> users;
+
+    public Game(GameDtoIn gameDtoIn, List<Group> groups, Set<Genre> genres, List<User> users) {
+        this.title = gameDtoIn.getTitle();
+        this.rating = gameDtoIn.getRating();
+        this.groups = groups;
+        this.genres = genres;
+        this.users = users;
+    }
 }

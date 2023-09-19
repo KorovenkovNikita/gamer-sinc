@@ -40,7 +40,8 @@ public class GenreService {
     }
 
     public Genre getGenreById(Long id) {
-        return genreRepository.findById(id).orElseThrow(() -> new GamerSyncException(HttpStatus.NOT_FOUND, "Cannot find genre with id = " + id));
+        return genreRepository.findById(id)
+            .orElseThrow(() -> new GamerSyncException(HttpStatus.NOT_FOUND, "Cannot find genre with id = " + id));
     }
 }
 
