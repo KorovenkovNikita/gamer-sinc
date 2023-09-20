@@ -1,5 +1,8 @@
 package com.gsg.gamersync.dto;
 
+import com.gsg.gamersync.entity.Game;
+import com.gsg.gamersync.entity.Group;
+import com.gsg.gamersync.entity.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,18 @@ import org.springframework.stereotype.Service;
 public class ConverterDto {
 
     private final ModelMapper modelMapper;
+
+    public List<UserDto> convertUsers(List<User> users) {
+        return users.stream().map(this::convertUser).toList();
+    }
+
+    public UserDto convertUser(User user) {
+        UserDto userDto = simpleConvert(user, UserDto.class);
+        userDto.setGroupIds(user.getGroups().stream().map(Group::getId).toList());
+        userDto.setFriendIds(user.getFriends().stream().map(User::getId).collect(Collectors.toSet()));
+        userDto.setGameIds(user.getGames().stream().map(Game::getId).toList());
+        return userDto;
+    }
 
     public <T> T simpleConvert(Object obj, Class<T> clazz) {
         return modelMapper.map(obj, clazz);

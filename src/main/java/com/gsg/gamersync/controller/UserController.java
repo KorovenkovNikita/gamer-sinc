@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping
     public List<UserDto> getUsers() {
-        return converterDto.simpleConvert(userService.getUsers(), UserDto.class);
+        return converterDto.convertUsers(userService.getUsers());
     }
 
     @GetMapping("/{id}")

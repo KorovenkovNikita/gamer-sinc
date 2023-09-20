@@ -20,20 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     public List<User> getUsers() {
-        List<User> users = userRepository.findAllWithGames();
-        for (User user : users) {
-            for (User userF: userRepository.findAllWithFriends()) {
-                if(user.getId().equals(userF.getId())){
-                    user.setFriends(userF.getFriends());
-                }
-            }
-            for (User userG: userRepository.findAllWithGroups()) {
-                if(user.getId().equals(userG.getId())){
-                    user.setGroups(userG.getGroups());
-                }
-            }
-        }
-        return users;
+        return userRepository.findAllWithAllFields();
     }
 
     public User getUserById(Long id) {

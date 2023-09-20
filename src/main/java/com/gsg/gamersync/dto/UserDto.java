@@ -23,7 +23,7 @@ public class UserDto {
     private String surname;
     private Gender gender;
     private Integer age;
-    private List<Long> games;
-    private Set<Long> friendsIds;
+    private List<Long> gameIds;
+    private Set<Long> friendIds;
     private List<Long> groupIds;
 }
