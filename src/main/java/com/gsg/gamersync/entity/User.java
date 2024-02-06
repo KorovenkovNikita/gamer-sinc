@@ -1,5 +1,6 @@
 package com.gsg.gamersync.entity;
 
+import com.gsg.gamersync.dto.UserDtoIn;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,4 +43,15 @@ public class User {
     private Set<User> friends;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private List<Group> groups;
+
+    public User(UserDtoIn userDtoIn) {
+        this.username = userDtoIn.getUsername();
+        this.role = userDtoIn.getRole();
+        this.networkStatus = userDtoIn.getNetworkStatus();
+        this.rating = userDtoIn.getRating();
+        this.name = userDtoIn.getName();
+        this.surname = userDtoIn.getSurname();
+        this.gender = userDtoIn.getGender();
+        this.age = userDtoIn.getAge();
+    }
 }

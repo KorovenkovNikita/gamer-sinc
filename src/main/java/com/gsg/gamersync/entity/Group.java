@@ -1,5 +1,6 @@
 package com.gsg.gamersync.entity;
 
+import com.gsg.gamersync.dto.GroupDtoIn;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,12 +12,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.util.List;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @Table(name = "`group`")
+@NoArgsConstructor
 public class Group {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,4 +28,8 @@ public class Group {
     private Game game;
     @ManyToMany(fetch = FetchType.LAZY)
     private List<User> users;
+
+    public Group(GroupDtoIn groupDtoIn) {
+        this.title = groupDtoIn.getTitle();
+    }
 }

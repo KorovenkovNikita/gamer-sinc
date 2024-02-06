@@ -1,5 +1,6 @@
 package com.gsg.gamersync.service;
 
+import com.gsg.gamersync.dto.UserDtoIn;
 import com.gsg.gamersync.entity.User;
 import com.gsg.gamersync.exeption.GamerSyncException;
 import com.gsg.gamersync.repository.UserRepository;
@@ -14,11 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @Slf4j
-@Transactional(readOnly = true)
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
-
     public List<User> getUsers() {
         return userRepository.findAllWithAllFields();
     }
@@ -26,5 +26,13 @@ public class UserService {
     public User getUserById(Long id) {
         return userRepository.findById(id)
             .orElseThrow(() -> new GamerSyncException(HttpStatus.NOT_FOUND, "Cannot find user with id = " + id));
+    }
+
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public User createUser(UserDtoIn userDto) {
+        return userRepository.save(new User(userDto));
     }
 }

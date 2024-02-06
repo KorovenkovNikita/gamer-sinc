@@ -33,11 +33,8 @@ public class Game {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<User> users;
 
-    public Game(GameDtoIn gameDtoIn, List<Group> groups, Set<Genre> genres, List<User> users) {
+    public Game(GameDtoIn gameDtoIn) {
         this.title = gameDtoIn.getTitle();
         this.rating = gameDtoIn.getRating();
-        this.groups = groups;
-        this.genres = genres;
-        this.users = users;
     }
 }

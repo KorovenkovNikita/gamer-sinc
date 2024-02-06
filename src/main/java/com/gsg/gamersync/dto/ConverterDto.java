@@ -27,7 +27,14 @@ public class ConverterDto {
         userDto.setGameIds(user.getGames().stream().map(Game::getId).toList());
         return userDto;
     }
-
+    public List<GroupDto> convertGroups(List<Group> groups) {
+        return groups.stream().map(this::convertGroup).toList();
+    }
+    public GroupDto convertGroup(Group group) {
+        GroupDto groupDto = simpleConvert(group, GroupDto.class);
+        groupDto.setGameId(group.getGame().getId());
+        return groupDto;
+    }
     public <T> T simpleConvert(Object obj, Class<T> clazz) {
         return modelMapper.map(obj, clazz);
     }
